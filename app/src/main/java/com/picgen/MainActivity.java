@@ -1,5 +1,6 @@
 package com.picgen;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,20 +14,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-
-    Button button;
-    TextView textView;
-    String word, filename;
-    File file;
-    FileInputStream in;
-    int maxLines;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,82 +34,83 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        word = "";
-        filename = "words.txt";
-        maxLines = countLines(filename);
+        final String filename = "words.txt";
 
-        button = findViewById(R.id.generate_button);
+        final int maxLines = countLines(filename);
+
+        final TextView textView = findViewById(R.id.generated_word_text_view);
+
+        Button button = findViewById(R.id.generate_button);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Toast.makeText(getBaseContext(), "Button clicked", Toast.LENGTH_SHORT).show();
+                textView.setText(getWord(filename, maxLines));
 
             }
         });
 
-        textView = findViewById(R.id.generated_word_text_view);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void setText(String word){
-        this.word = word;
-
-        textView.setText(word);
-
-    }
-
-    private String getText(){
-        return word;
-    }
-
-    private void updateWord(){
 
     }
 
     private int countLines(String filename) {
 
         int lines = 0;
-        String line;
+
+        InputStream in = getBaseContext().getResources().openRawResource(R.raw.words);
+        BufferedReader br = new BufferedReader(new InputStreamReader(in, Charset.forName("UTF-8")));
+
+        String line = "";
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(filename));
 
-             do {
-                 line = br.readLine();
+            do {
+                line = br.readLine();
+                lines++;
 
             } while (line != null);
 
-        } catch (IOException e) {
+        } catch (IOException e){
 
-            Toast.makeText(getBaseContext(), "Lines could not be read", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(getBaseContext(), "Could not read line count", Toast.LENGTH_SHORT).show();
         }
+
+        Toast.makeText(getBaseContext(), ""+lines, Toast.LENGTH_SHORT).show();
 
         return lines;
     }
 
-    private String getWord(String file){
+    private String getWord(String filename, int totalLines) {
 
-        return "";
+        Toast.makeText(getBaseContext(), "Inside getWord", Toast.LENGTH_SHORT).show();
+
+        int lineCount = 0;
+
+        Random random = new Random();
+        int randomInt = random.nextInt(totalLines);
+        Toast.makeText(getBaseContext(), ""+randomInt, Toast.LENGTH_SHORT).show();
+
+        InputStream in = getBaseContext().getResources().openRawResource(R.raw.words);
+        BufferedReader br = new BufferedReader(new InputStreamReader(in, Charset.forName("UTF-8")));
+
+        String line = "";
+
+        try {
+
+            do {
+                line = br.readLine();
+                lineCount++;
+
+            } while (line != null && lineCount <= totalLines);
+
+        } catch (IOException e){
+
+            Toast.makeText(getBaseContext(), "Could not read file", Toast.LENGTH_SHORT).show();
+        }
+
+        Toast.makeText(getBaseContext(), line, Toast.LENGTH_SHORT).show();
+
+        return line;
     }
 }
