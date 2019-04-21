@@ -1,6 +1,7 @@
 package com.picgen;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,6 +28,10 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+    int maxLines;
+    String filename;
+    TextView textView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,19 +39,20 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final String filename = "words.txt";
+        //filename = "words.txt";
 
-        final int maxLines = countLines(filename);
+        maxLines = countLines(filename);
 
-        final TextView textView = findViewById(R.id.generated_word_text_view);
+        textView = findViewById(R.id.generated_word_text_view);
 
         Button button = findViewById(R.id.generate_button);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(getBaseContext(), "Button clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Button clicked", Toast.LENGTH_SHORT).show();
                 textView.setText(getWord(filename, maxLines));
+                //Toast.makeText(getBaseContext(), textView.getText().toString(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -76,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Could not read line count", Toast.LENGTH_SHORT).show();
         }
 
-        Toast.makeText(getBaseContext(), ""+lines, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getBaseContext(), ""+lines, Toast.LENGTH_SHORT).show();
 
         return lines;
     }
@@ -89,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         Random random = new Random();
         int randomInt = random.nextInt(totalLines);
-        Toast.makeText(getBaseContext(), ""+randomInt, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getBaseContext(), ""+randomInt, Toast.LENGTH_SHORT).show();
 
         InputStream in = getBaseContext().getResources().openRawResource(R.raw.words);
         BufferedReader br = new BufferedReader(new InputStreamReader(in, Charset.forName("UTF-8")));
@@ -102,14 +108,14 @@ public class MainActivity extends AppCompatActivity {
                 line = br.readLine();
                 lineCount++;
 
-            } while (line != null && lineCount <= totalLines);
+            } while (line != null && lineCount <= randomInt);
 
         } catch (IOException e){
 
             Toast.makeText(getBaseContext(), "Could not read file", Toast.LENGTH_SHORT).show();
         }
 
-        Toast.makeText(getBaseContext(), line, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getBaseContext(), line, Toast.LENGTH_SHORT).show();
 
         return line;
     }
