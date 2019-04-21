@@ -5,6 +5,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -26,11 +29,10 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GeneratedWordFragment.OnGeneratedWordFragmentInteractionListener {
 
     int maxLines;
-    String filename;
-    TextView textView;
+    GeneratedWordFragment generatedWordFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,28 +41,27 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //filename = "words.txt";
-
-        maxLines = countLines(filename);
-
-        textView = findViewById(R.id.generated_word_text_view);
+        maxLines = countLines();
 
         Button button = findViewById(R.id.generate_button);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getBaseContext(), "Button clicked", Toast.LENGTH_SHORT).show();
-                textView.setText(getWord(filename, maxLines));
-                //Toast.makeText(getBaseContext(), textView.getText().toString(), Toast.LENGTH_SHORT).show();
+
+                if(generatedWordFragment == null) {
+                    generatedWordFragment = GeneratedWordFragment.newInstance(getWord(maxLines));
+                    startFragment(generatedWordFragment, R.id.generated_word_fragment_place, "generatedWordFragment");
+
+                } else {
+                    generatedWordFragment.changeText(getWord(maxLines));
+                }
 
             }
         });
-
-
     }
 
-    private int countLines(String filename) {
+    private int countLines() {
 
         int lines = 0;
 
@@ -82,20 +83,15 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Could not read line count", Toast.LENGTH_SHORT).show();
         }
 
-        //Toast.makeText(getBaseContext(), ""+lines, Toast.LENGTH_SHORT).show();
-
         return lines;
     }
 
-    private String getWord(String filename, int totalLines) {
-
-        Toast.makeText(getBaseContext(), "Inside getWord", Toast.LENGTH_SHORT).show();
+    private String getWord(int totalLines) {
 
         int lineCount = 0;
 
         Random random = new Random();
         int randomInt = random.nextInt(totalLines);
-        //Toast.makeText(getBaseContext(), ""+randomInt, Toast.LENGTH_SHORT).show();
 
         InputStream in = getBaseContext().getResources().openRawResource(R.raw.words);
         BufferedReader br = new BufferedReader(new InputStreamReader(in, Charset.forName("UTF-8")));
@@ -118,5 +114,18 @@ public class MainActivity extends AppCompatActivity {
         //Toast.makeText(getBaseContext(), line, Toast.LENGTH_SHORT).show();
 
         return line;
+    }
+
+    public void startFragment(Fragment fragment, int id, String tag){
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(id, fragment);
+        transaction.addToBackStack(tag);
+        transaction.commit();
+    }
+
+    @Override
+    public void OnGeneratedGameFragmentInteraction() {
+
     }
 }
