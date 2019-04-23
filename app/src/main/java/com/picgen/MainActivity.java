@@ -111,8 +111,6 @@ public class MainActivity extends AppCompatActivity implements GeneratedWordFrag
             Toast.makeText(getBaseContext(), "Could not read file", Toast.LENGTH_SHORT).show();
         }
 
-        //Toast.makeText(getBaseContext(), line, Toast.LENGTH_SHORT).show();
-
         return line;
     }
 
