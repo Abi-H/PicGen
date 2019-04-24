@@ -29,10 +29,13 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity implements GeneratedWordFragment.OnGeneratedWordFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements GeneratedWordFragment.OnGeneratedWordFragmentInteractionListener,
+        GenerateButtonFragment.OnGenerateButtonFragmentInteractionListener, WordActionFragment.OnWordActionFragmentInteractionListener {
 
-    int maxLines;
-    GeneratedWordFragment generatedWordFragment;
+    //int maxLines;
+    //GeneratedWordFragment generatedWordFragment;
+    //GenerateButtonFragment generateButtonFragment;
+    WordActionFragment wordActionFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +44,16 @@ public class MainActivity extends AppCompatActivity implements GeneratedWordFrag
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        maxLines = countLines();
+        int maxLines = countLines();
 
-        Button button = findViewById(R.id.generate_button);
+        wordActionFragment = WordActionFragment.newInstance(maxLines);
+        //Toast.makeText(getBaseContext(), "maxLines is "+countLines(), Toast.LENGTH_SHORT).show();
+        startFragment(wordActionFragment,R.id.word_action_fragment_place, "wordActionFragment");
+
+        /*generateButtonFragment = GenerateButtonFragment.newInstance();
+        startFragment(generateButtonFragment, R.id.generate_button_fragment_place, "generateButtonFragment");*/
+
+        /*Button button = findViewById(R.id.generate_button);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,12 +68,12 @@ public class MainActivity extends AppCompatActivity implements GeneratedWordFrag
                 }
 
             }
-        });
+        });*/
     }
 
     private int countLines() {
 
-        int lines = 0;
+        int lineCount = 0;
 
         InputStream in = getBaseContext().getResources().openRawResource(R.raw.words);
         BufferedReader br = new BufferedReader(new InputStreamReader(in, Charset.forName("UTF-8")));
@@ -74,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements GeneratedWordFrag
 
             do {
                 line = br.readLine();
-                lines++;
+                lineCount++;
 
             } while (line != null);
 
@@ -83,10 +93,10 @@ public class MainActivity extends AppCompatActivity implements GeneratedWordFrag
             Toast.makeText(getBaseContext(), "Could not read line count", Toast.LENGTH_SHORT).show();
         }
 
-        return lines;
+        return lineCount;
     }
 
-    private String getWord(int totalLines) {
+    /*private String getWord(int totalLines) {
 
         int lineCount = 0;
 
@@ -112,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements GeneratedWordFrag
         }
 
         return line;
-    }
+    }*/
 
     public void startFragment(Fragment fragment, int id, String tag){
         FragmentManager manager = getSupportFragmentManager();
@@ -123,7 +133,32 @@ public class MainActivity extends AppCompatActivity implements GeneratedWordFrag
     }
 
     @Override
-    public void OnGeneratedGameFragmentInteraction() {
+    public void OnGeneratedWordFragmentInteraction() {
 
     }
+
+    @Override
+    public void onClickGenerateWordButton() {
+
+    }
+
+    @Override
+    public void onWordActionFragmentInteraction() {
+
+    }
+
+
+   /* @Override
+    public void onClickGenerateWordButton() {
+
+        Toast.makeText(getBaseContext(), "Clicked Generate Word Button", Toast.LENGTH_SHORT).show();
+
+        if(generatedWordFragment == null) {
+            generatedWordFragment = GeneratedWordFragment.newInstance(getWord(maxLines));
+            startFragment(generatedWordFragment, R.id.generated_word_fragment_place, "generatedWordFragment");
+
+        } else {
+            generatedWordFragment.changeText(getWord(maxLines));
+        }
+    }*/
 }

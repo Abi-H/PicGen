@@ -17,9 +17,7 @@ public class GeneratedWordFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState){
-
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -31,11 +29,9 @@ public class GeneratedWordFragment extends Fragment {
         }
 
         generatedWordTextView = view.findViewById(R.id.generated_word_text_view);
-
-        generatedWordTextView.setText(word);
+        changeText(word);
 
         return view;
-
     }
 
     @Override
@@ -65,11 +61,10 @@ public class GeneratedWordFragment extends Fragment {
     }
 
     public void changeText(String updatedWord){
-
         generatedWordTextView.setText(updatedWord);
     }
 
     public interface OnGeneratedWordFragmentInteractionListener {
-        void OnGeneratedGameFragmentInteraction();
+        void OnGeneratedWordFragmentInteraction();
     }
 }

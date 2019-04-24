@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WordActionFragment"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/generated_word_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/generate_button_fragment_height"
+        android:textAlignment="center"
+        android:textSize="@dimen/generated_word_text_size"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/generate_word_button"
+        android:layout_width="@dimen/generate_button_width"
+        android:layout_height="@dimen/generate_button_height"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/generate_button_text"
+        />
+
+</LinearLayout>

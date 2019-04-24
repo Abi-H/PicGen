@@ -3,5 +3,7 @@
     <dimen name="generate_button_height">50dp</dimen>
     <dimen name="generate_button_width">150dp</dimen>
     <dimen name="word_fragment_place_height">200dp</dimen>
-    <dimen name="text_view_height">200dp</dimen>
+    <dimen name="generated_word_text_view_height">200dp</dimen>
+    <dimen name="generated_word_text_size">20sp</dimen>
+    <dimen name="generate_button_fragment_height">100dp</dimen>
 </resources>
