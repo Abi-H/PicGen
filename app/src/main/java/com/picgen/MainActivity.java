@@ -29,12 +29,8 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity implements GeneratedWordFragment.OnGeneratedWordFragmentInteractionListener,
-        GenerateButtonFragment.OnGenerateButtonFragmentInteractionListener, WordActionFragment.OnWordActionFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements WordActionFragment.OnWordActionFragmentInteractionListener {
 
-    //int maxLines;
-    //GeneratedWordFragment generatedWordFragment;
-    //GenerateButtonFragment generateButtonFragment;
     WordActionFragment wordActionFragment;
 
     @Override
@@ -47,28 +43,8 @@ public class MainActivity extends AppCompatActivity implements GeneratedWordFrag
         int maxLines = countLines();
 
         wordActionFragment = WordActionFragment.newInstance(maxLines);
-        //Toast.makeText(getBaseContext(), "maxLines is "+countLines(), Toast.LENGTH_SHORT).show();
         startFragment(wordActionFragment,R.id.word_action_fragment_place, "wordActionFragment");
 
-        /*generateButtonFragment = GenerateButtonFragment.newInstance();
-        startFragment(generateButtonFragment, R.id.generate_button_fragment_place, "generateButtonFragment");*/
-
-        /*Button button = findViewById(R.id.generate_button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(generatedWordFragment == null) {
-                    generatedWordFragment = GeneratedWordFragment.newInstance(getWord(maxLines));
-                    startFragment(generatedWordFragment, R.id.generated_word_fragment_place, "generatedWordFragment");
-
-                } else {
-                    generatedWordFragment.changeText(getWord(maxLines));
-                }
-
-            }
-        });*/
     }
 
     private int countLines() {
@@ -96,34 +72,6 @@ public class MainActivity extends AppCompatActivity implements GeneratedWordFrag
         return lineCount;
     }
 
-    /*private String getWord(int totalLines) {
-
-        int lineCount = 0;
-
-        Random random = new Random();
-        int randomInt = random.nextInt(totalLines);
-
-        InputStream in = getBaseContext().getResources().openRawResource(R.raw.words);
-        BufferedReader br = new BufferedReader(new InputStreamReader(in, Charset.forName("UTF-8")));
-
-        String line = "";
-
-        try {
-
-            do {
-                line = br.readLine();
-                lineCount++;
-
-            } while (line != null && lineCount <= randomInt);
-
-        } catch (IOException e){
-
-            Toast.makeText(getBaseContext(), "Could not read file", Toast.LENGTH_SHORT).show();
-        }
-
-        return line;
-    }*/
-
     public void startFragment(Fragment fragment, int id, String tag){
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -133,32 +81,7 @@ public class MainActivity extends AppCompatActivity implements GeneratedWordFrag
     }
 
     @Override
-    public void OnGeneratedWordFragmentInteraction() {
-
-    }
-
-    @Override
-    public void onClickGenerateWordButton() {
-
-    }
-
-    @Override
     public void onWordActionFragmentInteraction() {
 
     }
-
-
-   /* @Override
-    public void onClickGenerateWordButton() {
-
-        Toast.makeText(getBaseContext(), "Clicked Generate Word Button", Toast.LENGTH_SHORT).show();
-
-        if(generatedWordFragment == null) {
-            generatedWordFragment = GeneratedWordFragment.newInstance(getWord(maxLines));
-            startFragment(generatedWordFragment, R.id.generated_word_fragment_place, "generatedWordFragment");
-
-        } else {
-            generatedWordFragment.changeText(getWord(maxLines));
-        }
-    }*/
 }
