@@ -1,4 +1,4 @@
-package com.picgen;
+package com.picgen.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.picgen.R;
 
 public class GeneratedWordFragment extends Fragment {
 
@@ -29,7 +31,7 @@ public class GeneratedWordFragment extends Fragment {
         }
 
         generatedWordTextView = view.findViewById(R.id.generated_word_text_view);
-        changeText(word);
+        //changeText(word);
 
         return view;
     }
