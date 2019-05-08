@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.picgen.R;
 
@@ -16,7 +17,7 @@ public class FileListFragment extends Fragment {
 
     private OnFileListFragmentInteractionListener mListener;
     RadioGroup radioGroup;
-    int file, checkedItem;
+    int file;
     int[] files;
 
     public FileListFragment() {
@@ -39,10 +40,6 @@ public class FileListFragment extends Fragment {
 
         final View view = inflater.inflate(R.layout.fragment_file_list, container, false);
 
-
-
-       // getAllRawResources();
-
         radioGroup = (RadioGroup) view.findViewById(R.id.file_selector_radio_group);
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
@@ -62,7 +59,12 @@ public class FileListFragment extends Fragment {
                         break;
 
                     case R.id.file_selector_radio_button_3:
-                        file = R.raw.words;
+                        file = R.raw.nouns;
+                        mListener.getFileClick(file);
+                        break;
+
+                    case R.id.file_selector_radio_button_4:
+                        file = R.raw.common_words;
                         mListener.getFileClick(file);
                         break;
 
@@ -70,40 +72,7 @@ public class FileListFragment extends Fragment {
             }
         });
 
-        /*RadioButton button1 = (RadioButton) view.findViewById(R.id.file_selector_radio_button_1);
-
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkedItem = R.raw.words;
-            }
-        });
-
-        RadioButton button2 = (RadioButton) view.findViewById(R.id.file_selector_radio_button_2);
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkedItem = R.raw.words;
-            }
-        });
-
-        RadioButton button3 = (RadioButton) view.findViewById(R.id.file_selector_radio_button_3);
-
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkedItem = R.raw.words_alpha;
-            }
-        });*/
-
         return view;
-    }
-
-    public int getCheckedItem(){
-        return file;
-      // mListener.onFileListFragmentInteraction(radioGroup.getCheckedRadioButtonId());
-        //return radioGroup.getCheckedRadioButtonId();
     }
 
     public static FileListFragment newInstance(int[] files) {

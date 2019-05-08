@@ -3,7 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="generate_button_text">Generate Word</string>
     <string name="file_selector_text">Select a dictionary</string>
-    <string name="file_1_text">File 1</string>
-    <string name="file_2_text">File 2</string>
-    <string name="file_3_text">File 3</string>
+    <string name="file_1_text">Impossible</string>
+    <string name="file_2_text">Hard</string>
+    <string name="file_3_text">Medium</string>
+    <string name="file_4_text">Easy</string>
 </resources>

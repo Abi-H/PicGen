@@ -28,7 +28,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/word_action_fragment_place"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="@dimen/word_fragment_place_height"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,13 +37,12 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/file_list_fragment_place"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/file_list_fragment_height"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/word_action_fragment_place"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/word_action_fragment_place"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/word_action_fragment_place" />
 
 </android.support.constraint.ConstraintLayout>
 

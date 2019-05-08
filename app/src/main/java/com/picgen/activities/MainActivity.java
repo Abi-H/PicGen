@@ -36,10 +36,6 @@ public class MainActivity extends AppCompatActivity implements WordActionFragmen
 
         file = R.raw.words;
 
-        //int maxLines = countLines();
-        //getAllRawResources();
-
-
         wordActionFragment = WordActionFragment.newInstance(file);
         startFragment(wordActionFragment, R.id.word_action_fragment_place, "wordActionFragment");
 

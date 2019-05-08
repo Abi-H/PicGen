@@ -80,6 +80,7 @@ public class WordActionFragment extends Fragment {
 
     public void setFile(int file){
         this.file = file;
+        maxLines = countLines(file);
     }
 
     private int countLines(int file) {
@@ -94,11 +95,9 @@ public class WordActionFragment extends Fragment {
 
         try {
 
-            do {
-                line = br.readLine();
+            while((line = br.readLine()) != null){
                 lineCount++;
-
-            } while (line != null);
+            }
 
         } catch (IOException e){
 
@@ -132,11 +131,9 @@ public class WordActionFragment extends Fragment {
 
         try {
 
-            do {
-                line = br.readLine();
+            while((line = br.readLine()) != null && lineCount <= randomInt){
                 lineCount++;
-
-            } while (line != null && lineCount <= randomInt);
+            }
 
         } catch (IOException e){
 
